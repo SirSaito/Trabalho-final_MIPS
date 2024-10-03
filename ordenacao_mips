@@ -1,0 +1,30 @@
+.data
+	
+	grupo:
+		 .space 24 #array de 6 inteiros
+		 .align 2 #alinha na posição correta
+	
+.text 
+	li $t0, 0
+	li $t1, 0
+	li $t2, 24
+	
+	loop:
+	beq $t0, $t2, saidal
+	sw $t1, grupo($t0)
+	addi $t0, $t0, 4
+	addi $t1, $t1, 1
+	j loop
+	
+	saidal:
+		move $t0, $zero
+		imprime:
+			beq $t0, $t2, saidai
+			li $v0, 1
+			lw $a0, grupo($t0)
+			syscall
+			
+			addi $t0, $t0, 4
+			j imprime
+			
+			saidai:
